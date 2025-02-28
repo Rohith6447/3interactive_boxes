@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Boxes</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .box {
+            width: 150px;
+            height: 100px;
+            background-color: lightgray;
+            margin: 20px;
+            text-align: center;
+            line-height: 100px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+        }
+
+        .expanded {
+            width: 250px;
+            height: 200px;
+            line-height: normal;
+            padding: 10px;
+        }
+
+        .options {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .expanded .options {
+            display: block;
+        }
+
+        .color-option, .size-option {
+            margin: 5px;
+            padding: 5px;
+            cursor: pointer;
+            display: inline-block;
+            border: 1px solid #000;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .size-option {
+            padding: 5px 10px;
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box" onclick="toggleBox(this)" data-box-id="1">Box 1
+        <div class="options">
+            <div>Color:</div>
+            <div class="color-option" style="background-color: red;" onclick="changeColor(event, this, 'red')"></div>
+            <div class="color-option" style="background-color: blue;" onclick="changeColor(event, this, 'blue')"></div>
+            <div class="color-option" style="background-color: green;" onclick="changeColor(event, this, 'green')"></div>
+
+            <div>Size:</div>
+            <div class="size-option" onclick="changeSize(event, this, 'small')">Small</div>
+            <div class="size-option" onclick="changeSize(event, this, 'medium')">Medium</div>
+            <div class="size-option" onclick="changeSize(event, this, 'large')">Large</div>
+        </div>
+    </div>
+
+    <div class="box" onclick="toggleBox(this)" data-box-id="2">Box 2
+        <div class="options">
+            <div>Color:</div>
+            <div class="color-option" style="background-color: red;" onclick="changeColor(event, this, 'red')"></div>
+            <div class="color-option" style="background-color: blue;" onclick="changeColor(event, this, 'blue')"></div>
+            <div class="color-option" style="background-color: green;" onclick="changeColor(event, this, 'green')"></div>
+
+            <div>Size:</div>
+            <div class="size-option" onclick="changeSize(event, this, 'small')">Small</div>
+            <div class="size-option" onclick="changeSize(event, this, 'medium')">Medium</div>
+            <div class="size-option" onclick="changeSize(event, this, 'large')">Large</div>
+        </div>
+    </div>
+
+    <div class="box" onclick="toggleBox(this)" data-box-id="3">Box 3
+        <div class="options">
+            <div>Color:</div>
+            <div class="color-option" style="background-color: red;" onclick="changeColor(event, this, 'red')"></div>
+            <div class="color-option" style="background-color: blue;" onclick="changeColor(event, this, 'blue')"></div>
+            <div class="color-option" style="background-color: green;" onclick="changeColor(event, this, 'green')"></div>
+
+            <div>Size:</div>
+            <div class="size-option" onclick="changeSize(event, this, 'small')">Small</div>
+            <div class="size-option" onclick="changeSize(event, this, 'medium')">Medium</div>
+            <div class="size-option" onclick="changeSize(event, this, 'large')">Large</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleBox(box) {
+            document.querySelectorAll('.box').forEach(b => {
+                if (b !== box) b.classList.remove('expanded');
+            });
+            box.classList.toggle('expanded');
+        }
+
+        function changeColor(event, element, color) {
+            event.stopPropagation();
+            let box = element.closest('.box');
+            box.style.backgroundColor = color;
+        }
+
+        function changeSize(event, element, size) {
+            event.stopPropagation();
+            let box = element.closest('.box');
+
+            if (size === "small") {
+                box.style.width = "150px";
+                box.style.height = "100px";
+            } else if (size === "medium") {
+                box.style.width = "200px";
+                box.style.height = "150px";
+            } else if (size === "large") {
+                box.style.width = "250px";
+                box.style.height = "200px";
+            }
+        }
+    </script>
+
+</body>
+</html>
